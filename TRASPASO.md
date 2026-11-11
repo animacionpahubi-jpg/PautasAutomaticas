@@ -12,9 +12,9 @@ El bot usa varias cuentas. Si alguna está a nombre de Andres y se cierra, esa p
 
 | # | Cuenta | Para qué la usa el bot | Qué hacer |
 |---|---|---|---|
-| 1 | **Claude Code** (instalado en el PC de la oficina) | Es el "cerebro": escoge la publicación y arma la pauta en /vender, /seguidores_eva, etc. | Ver con qué cuenta está iniciado (`claude` → `/status`). Si es la de Andres, iniciar sesión con una cuenta de Pahubi (`claude` → `/login`). **Alternativa:** poner `ANTHROPIC_API_KEY` en el .env (pago por uso, ~USD 3–6 al mes con este uso). |
+| 1 | **Claude** (el "cerebro") | Escoge la publicación y arma la pauta en /vender, /seguidores_eva, etc. | Hoy usa Claude Code con la suscripción de **sistemas@pahubi.com, que vence alrededor del 14 nov**. **Recomendado:** pasar a la API de Anthropic (pago por uso, sin suscripción de nadie). Ver la sección 1.1. |
 | 2 | **Bot de Telegram** @metricas_pahubi_bot | Todo el bot | Lo controla quien lo creó en @BotFather. Si fue Andres, pasarlo: BotFather → /mybots → el bot → *Transfer ownership* a Ivan. |
-| 3 | **Windsor.ai** | Lee Meta, Instagram, TikTok y GA4, y crea y pausa pautas en Meta | Ver a qué correo está la cuenta y **cuándo vence la prueba gratis (TRIAL)**. Si vence, el bot deja de ver Meta e Instagram y no puede crear pautas. Pasar la cuenta a un correo de Pahubi y decidir si se paga un plan. |
+| 3 | **Windsor.ai** (cuenta animacion.pahubi@gmail.com) | Lee Meta, Instagram, TikTok y GA4, y crea y pausa pautas en Meta | **La prueba gratis termina el 21 nov 2026.** El plan gratis que sigue solo permite 1 fuente y 1 cuenta, y con eso **el bot deja de funcionar**. Ver la sección 1.3. |
 | 4 | **WooCommerce: llave de API de solo lectura** | Ventas reales, pedidos y alertas | La llave pertenece a un usuario de WordPress. **Si se borra el usuario de Andres, la llave muere.** Crear una llave nueva de *solo lectura* con un usuario de Pahubi (WooCommerce → Ajustes → Avanzado → API REST) y cambiarla en el .env. |
 | 5 | **TikTok for Business Developers**: app "Pahubi Metricas Bot" (ID 7706642148078125077) | Crear Spark Ads de Eva y leer TikTok | Está en la cuenta "pahubi sas" (correo @pahubi.com). Confirmar que Ivan tenga acceso a ese correo. |
 | 6 | **Mercado Libre**: app "Pahubi Metricas" (solo lectura) | Leer pedidos de Mercado Libre (todavía no se usa en el bot) | Está en la cuenta PAHUBI SAS. Nada urgente. |
@@ -22,6 +22,48 @@ El bot usa varias cuentas. Si alguna está a nombre de Andres y se cierra, esa p
 | 8 | **El archivo `.env`** (en el PC, en `bot-metricas/`) | Guarda todas las llaves | **No está en GitHub, a propósito.** Copiarlo a un lugar seguro de la empresa (no por chat ni correo). Si se pierde, hay que sacar las llaves otra vez (sección 4). |
 
 > Después de cambiar cualquier llave en el .env hay que **reiniciar el bot** (sección 3).
+
+### 1.1 Pasar el "cerebro" a la API de Claude (antes del 14 nov)
+
+El bot ya sabe usar la API: si en el `.env` existe `ANTHROPIC_API_KEY`, la usa en vez de Claude Code.
+
+1. Ivan (o quien maneje los pagos) crea una cuenta en **https://console.anthropic.com** con un correo de la empresa.
+2. **Billing:** agregar tarjeta y cargar saldo (por ejemplo USD 10). Conviene poner un límite mensual de gasto (*Limits*), por ejemplo USD 15.
+3. **API Keys → Create Key** con el nombre `bot-pautas`. Copiarla una sola vez.
+4. En `bot-metricas/.env`, poner `ANTHROPIC_API_KEY=` seguido de la llave, y opcionalmente `CLAUDE_API_MODELO=`.
+5. Reiniciar el bot y probar con `/vender` (solo propone, no crea nada).
+
+**Costo estimado** (cada propuesta lee unos 50.000 tokens y escribe unos 2.000):
+
+| Modelo (`CLAUDE_API_MODELO`) | Precio (entrada / salida, por millón de tokens) | Por propuesta | 20–40 propuestas al mes |
+|---|---|---|---|
+| `claude-opus-5-5` (por defecto, el mejor) | USD 4 / USD 20 | ~USD 0,25–0,35 | **~USD 6–14** |
+| `claude-sonnet-5-5` (el que usa hoy Claude Code) | USD 2 / USD 10 | ~USD 0,12–0,18 | **~USD 3–7** |
+
+Las propuestas semanales automáticas (2 cada lunes) entran en esa cuenta.
+
+**Alternativa:** otra persona de Pahubi con suscripción de Claude inicia sesión en Claude Code en el PC (`claude` → `/login`). Así funciona igual que hoy, pero vuelve a depender de la cuenta de una persona.
+
+### 1.2 Darle acceso al bot a Ivan (y a quien siga)
+
+1. La persona le escribe cualquier cosa a **@metricas_pahubi_bot** en Telegram. El bot le contesta *"No autorizado. Tu ID de Telegram es …"*.
+2. En `bot-metricas/.env`, agregar ese número a `ALLOWED_CHAT_IDS`, separado por coma de los demás.
+3. Para que **pueda aprobar pautas de Pahubi**, agregarlo también a `PAHUBI_APROBADORES`.
+4. Reiniciar el bot.
+5. **Control total del bot:** en @BotFather → /mybots → @metricas_pahubi_bot → *Transfer ownership*, pasárselo a Ivan. Así él puede cambiar el token si algún día hace falta.
+6. Cuando Andres se vaya: quitar su ID de `ALLOWED_CHAT_IDS` y de `PAHUBI_APROBADORES`.
+
+### 1.3 Windsor después del 21 de noviembre
+
+| Plan | Precio | ¿Le sirve al bot? |
+|---|---|---|
+| Free (después de la prueba) | USD 0 | **No.** Solo 1 fuente y 1 cuenta. El bot necesita Meta Ads (Pahubi y Eva), Instagram (Pahubi y Eva), TikTok orgánico de Eva y GA4. |
+| **Basic** | **USD 23/mes** (USD 19/mes si se paga el año) | **Sí, con un ajuste:** 3 fuentes y 75 cuentas, 10 años de historia, MCP y acciones incluidas. Se escogen **Facebook Ads, Instagram y TikTok orgánico**. GA4 sale, y lo de TikTok Ads ya lo lee el bot directo por su API. Antes hay que hacer un pequeño cambio en el bot: la regla de "visitas sin carritos" usa GA4 y se puede cambiar por las visitas que reporta Meta. |
+| Standard | USD 118/mes | Sí, sin cambios (7 fuentes). Es caro para este uso. |
+
+Bonus del plan pago: se acaban dos límites de la prueba, el de "solo 30 días de historia" y probablemente el de "vistas congeladas" de Instagram.
+
+**A futuro (USD 0):** conectar el bot directo a la API de Meta, como ya se hizo con TikTok. Ivan tendría que crear una app de Meta y un "usuario del sistema" en Business Manager. Es más trabajo de programación, pero elimina Windsor.
 
 ---
 
@@ -158,6 +200,11 @@ bot-metricas/bot.py   ← corre en el PC de la oficina, una sola copia
 ## 8. Trabajar el proyecto con Claude Code
 
 Abrir una terminal en la carpeta del proyecto y escribir `claude`. Claude lee [CLAUDE.md](CLAUDE.md) con las reglas y el contexto.
+
+**Lo que Claude "sabe" de la empresa no está guardado en la cuenta de Claude.** Está en archivos:
+- **En este repositorio:** `CLAUDE.md`, `TRASPASO.md`, `docs/historial-y-decisiones.md`, `.claude/product-marketing.md`, `.claude/eva-marketing.md`, el manual y los criterios del bot, y los análisis. Cualquiera que abra Claude Code en esta carpeta, con cualquier cuenta, arranca con todo eso.
+- **La "memoria" de Claude Code** (notas detalladas de cada tema) **solo está en el PC de la oficina**, en `C:\Users\PC\.claude\projects\c--Users-PC-Desktop-Trabajo-Pahubi-Pautas-Pahubi\memory\`. No se subió a GitHub porque el repositorio es público. Pertenece al usuario de Windows y a la carpeta, no a la cuenta de Claude: quien use Claude Code **en ese PC y en esta carpeta** la tiene disponible aunque inicie sesión con otra cuenta. Si se trabaja desde otro PC, copiar esa carpeta al mismo lugar.
+- La conversación larga con Andres no se traspasa. Todo lo importante quedó en los archivos de arriba.
 
 - Las skills de marketing (ads, ad-creative, cro, social, competitors…) **no se suben** porque son de terceros. Para reinstalarlas, usar `skills-lock.json` o pedirle a Claude que las instale. El bot **no las necesita para funcionar**: su resumen ya está en `bot-metricas/criterios_venta.md`.
 - Las reglas propias de Pahubi están en `skills/` (cuentas, WhatsApp, Pixel, contactos). Ver `skills/LEEME-INSTALAR.md`.

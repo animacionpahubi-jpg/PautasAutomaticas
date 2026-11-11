@@ -348,7 +348,8 @@ def preguntar_claude_code(pregunta, sistema=None):
 def preguntar_api(pregunta, sistema=None):
     client = anthropic.Anthropic(api_key=ENV["ANTHROPIC_API_KEY"])
     respuesta = client.beta.messages.create(
-        model="claude-opus-5-5",
+        # claude-opus-5-5 (~USD 0,30 por pauta) o claude-sonnet-5-5 (~USD 0,15); se cambia en .env
+        model=ENV.get("CLAUDE_API_MODELO", "claude-opus-5-5"),
         max_tokens=16000,
         output_config={"effort": "medium"},
         betas=["server-side-fallback-2026-07-01"],
