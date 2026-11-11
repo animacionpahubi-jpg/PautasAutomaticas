@@ -1,0 +1,273 @@
+<title>Pahubi en Marketplaces</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: memo de decisión en una columna, con tabla comparativa, ejemplo de comisión y plan por fases */
+:root {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --fg: #2a2230;
+  --muted: #6c6274;
+  --line: #e6e0ea;
+  --brand: #6b2d8b;
+  --brand-soft: #f3ebf7;
+  --leaf: #4f8a1f;
+  --leaf-soft: #eef6e6;
+  --warn: #9a5b00;
+  --warn-soft: #fff4e0;
+  --font-display: "Lexend", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #18141b; --surface: #211c25; --fg: #ece6ef; --muted: #a99fb0; --line: #3a3240;
+    --brand: #c99be0; --brand-soft: #2e2236; --leaf: #9fd46b; --leaf-soft: #233019;
+    --warn: #f0b45a; --warn-soft: #33270f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #18141b; --surface: #211c25; --fg: #ece6ef; --muted: #a99fb0; --line: #3a3240;
+  --brand: #c99be0; --brand-soft: #2e2236; --leaf: #9fd46b; --leaf-soft: #233019;
+  --warn: #f0b45a; --warn-soft: #33270f; color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+main { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.25; text-wrap: balance; margin: 0; }
+h1 { font-size: 1.9rem; color: var(--brand); }
+h2 { font-size: 1.3rem; margin-bottom: 12px; }
+h3 { font-size: 1.05rem; margin-bottom: 6px; }
+p { margin: 0 0 10px; }
+section { min-width: 0; }
+.eyebrow { font-family: var(--font-display); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.lede { font-size: 1.1rem; }
+.meta { color: var(--muted); font-size: .92rem; }
+.ask { background: var(--brand-soft); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; }
+.ask h2 { color: var(--brand); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .93rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--font-display); font-weight: 600; font-size: .8rem; color: var(--muted); background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+td.num { text-align: right; white-space: nowrap; }
+.wide { min-width: 760px; }
+.pill { display: inline-block; font-size: .76rem; font-weight: 700; padding: 1px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.ok { background: var(--leaf-soft); color: var(--leaf); }
+.pill.wait { background: var(--warn-soft); color: var(--warn); }
+.pill.info { background: var(--brand-soft); color: var(--brand); }
+ul.clean, ol.clean { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.phases { display: grid; gap: 14px; }
+.phase { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; min-width: 0; }
+.phase .when { font-size: .85rem; color: var(--muted); margin-bottom: 6px; }
+.fhm { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.fhm > div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+.fhm h3 { font-size: .95rem; }
+.note { font-size: .9rem; color: var(--muted); }
+.sources { font-size: .88rem; color: var(--muted); }
+.sources a { color: var(--brand); word-break: break-word; }
+a:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+</style>
+
+<main>
+  <header>
+    <div class="eyebrow">Propuesta para Ivan Cordoba · 5 de noviembre de 2026</div>
+    <h1>Pahubi en marketplaces</h1>
+    <p class="lede">Recomiendo vender en más marketplaces empezando por <strong>Mercado Libre</strong> y después <strong>Éxito</strong>, manejando el inventario a mano. Por ahora no conviene pagar un integrador: el más conocido cobra al mes más de lo que hoy vende la tienda web.</p>
+    <p class="meta">Preparado por Andres (sistemas@pahubi.com) con datos de WooCommerce y de las páginas de cada marketplace. Las comisiones que no son oficiales están marcadas como "por confirmar".</p>
+  </header>
+
+  <section class="ask">
+    <h2>Lo que necesito de usted para avanzar</h2>
+    <ol class="clean">
+      <li><strong>Confirmar dónde ya vendemos y cómo.</strong> En nuestros documentos figuran Rappi, Mercado Libre, Éxito, Alkosto y Falabella, y hubo pauta que mandaba a Alkosto ($1,09 millones). Necesito saber en cuáles estamos activos, si somos vendedores (publicamos y despachamos) o proveedores (ellos nos compran), y cuánto vende cada uno.</li>
+      <li><strong>El costo de cada combo.</strong> Sin ese dato no puedo calcular si una venta con comisión deja ganancia.</li>
+      <li><strong>Aprobar el arranque en Mercado Libre</strong> con los 5 combos, al mismo precio de la web.</li>
+      <li><strong>Definir quién despacha</strong> los pedidos de marketplaces: el mismo equipo y la misma bodega de la web, o la logística del marketplace.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Cómo se compara cada canal</h2>
+    <div class="table-wrap">
+      <table class="wide">
+        <thead>
+          <tr><th>Canal</th><th>Modelo</th><th>Comisión</th><th>Entrega</th><th>Qué piden</th><th>Lectura</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Mercado Libre</strong></td>
+            <td>Vendedor: publicamos y despachamos</td>
+            <td>Según la categoría. Cuidado personal: cerca de 14 % en publicación clásica y 19 % en premium, más un cargo fijo en productos baratos <span class="pill wait">por confirmar</span></td>
+            <td>Mercado Envíos o despacho propio</td>
+            <td>Cuenta de vendedor, RUT y facturación</td>
+            <td><span class="pill ok">Empezar aquí</span> Es el que más tráfico tiene y su sistema permite conectar las ventas a nuestro bot sin costo.</td>
+          </tr>
+          <tr>
+            <td><strong>Éxito</strong></td>
+            <td>Vendedor</td>
+            <td>Entre 8 % y 20 % + IVA sobre la comisión <span class="pill info">oficial</span></td>
+            <td>"Go Éxito": ellos recogen y entregan con Coordinadora. También se puede despachar por cuenta propia</td>
+            <td>Cámara de Comercio, RUT, certificado bancario, cédula del representante, factura electrónica y código de barras (EAN)</td>
+            <td><span class="pill ok">Segundo</span> Publicar es gratis y paga cada semana.</td>
+          </tr>
+          <tr>
+            <td><strong>Falabella</strong></td>
+            <td>Vendedor</td>
+            <td>Entre 8 % y 18 % según la categoría <span class="pill wait">por confirmar</span></td>
+            <td>Preparamos el pedido y Falabella lo entrega</td>
+            <td>NIT y registro en el Seller Center</td>
+            <td><span class="pill info">Tercero</span> Tiene buen público, pero menos tráfico en nuestra categoría.</td>
+          </tr>
+          <tr>
+            <td><strong>Rappi Turbo</strong></td>
+            <td>Proveedor: Rappi nos compra el inventario y fija el precio</td>
+            <td>No hay comisión por pedido. Se negocia un precio al por mayor</td>
+            <td>Rappi la hace desde sus bodegas</td>
+            <td>Formulario "Quiero ser proveedor"</td>
+            <td><span class="pill info">Decisión suya</span> Es otro negocio, al por mayor. Pequeñín manda toda su pauta a Rappi.</td>
+          </tr>
+          <tr>
+            <td><strong>Alkosto</strong></td>
+            <td>No hay información pública para vendedores externos</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td><span class="pill wait">Confirmar</span> Ya vendemos ahí. Hay que saber en qué condiciones.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lo que ya tenemos a favor: registro INVIMA, código de barras en cada combo y NIT. Hay que confirmar si la facturación electrónica ya está activa.</p>
+  </section>
+
+  <section>
+    <h2>Cuánto se queda el marketplace en una venta</h2>
+    <p>Ejemplo con el Combo Papel Higiénico Húmedo a $32.200, que es su precio en la web:</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Si la comisión es</th><th class="num">Comisión</th><th class="num">IVA de la comisión</th><th class="num">Recibe Pahubi</th></tr></thead>
+        <tbody>
+          <tr><td>8 % (lo más bajo)</td><td class="num">$2.576</td><td class="num">$489</td><td class="num">$29.135</td></tr>
+          <tr><td>14 %</td><td class="num">$4.508</td><td class="num">$857</td><td class="num">$26.835</td></tr>
+          <tr><td>20 % (lo más alto)</td><td class="num">$6.440</td><td class="num">$1.224</td><td class="num">$24.536</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">A eso hay que restarle el costo del combo y el despacho. Como falta el costo, todavía no se puede decir si cada venta deja ganancia.</p>
+  </section>
+
+  <section>
+    <h2>¿Y un integrador para automatizar todo?</h2>
+    <p>Un integrador conecta la tienda con todos los marketplaces: publica los productos, descuenta el inventario en todos los canales y junta los pedidos. Multivende, el más usado en la región y que sí conecta con Mercado Libre, Falabella y Éxito, cobra en Colombia:</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Concepto</th><th class="num">Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Plan más barato (Starter)</td><td class="num">$800.000 al mes</td></tr>
+          <tr><td>Instalación por cada canal conectado</td><td class="num">$1.400.000</td></tr>
+          <tr><td>Primer año con 2 canales</td><td class="num">$12.400.000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>La tienda web vendió en promedio unos <strong>$510.000 al mes</strong> en los últimos 6 meses. El integrador costaría más que eso. Con solo 5 combos y entre 31 y 50 unidades de cada uno, el inventario se puede manejar a mano:</p>
+    <ul class="clean">
+      <li><strong>Asignar un cupo de inventario a cada canal,</strong> por ejemplo 10 unidades de cada combo para Mercado Libre. Así no se vende lo que no hay.</li>
+      <li><strong>Revisar el inventario una vez al día.</strong></li>
+      <li><strong>Conectar Mercado Libre al bot de métricas,</strong> que ya avisa los pedidos de la web, para ver todas las ventas juntas en Telegram. Es gratis.</li>
+    </ul>
+    <p>El integrador vale la pena cuando los marketplaces vendan varias veces lo que cuesta al mes, o cuando el manejo a mano empiece a causar ventas de producto agotado.</p>
+  </section>
+
+  <section>
+    <h2>Plan propuesto</h2>
+    <div class="phases">
+      <div class="phase">
+        <div class="when">Noviembre</div>
+        <h3>Confirmar y arrancar en Mercado Libre</h3>
+        <ul class="clean">
+          <li>Confirmar en qué canales ya estamos, cómo y cuánto venden.</li>
+          <li>Conseguir el costo de cada combo.</li>
+          <li>Revisar la comisión exacta en el simulador de Mercado Libre.</li>
+          <li>Publicar los 5 combos al mismo precio de la web, con las mismas fotos y descripciones.</li>
+          <li>Asignar el cupo de inventario.</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="when">Diciembre</div>
+        <h3>Sumar Éxito y ver todo en un solo lugar</h3>
+        <ul class="clean">
+          <li>Registrarse en el marketplace de Éxito con la opción "Go Éxito".</li>
+          <li>Que el bot muestre las ventas de la web y de Mercado Libre juntas.</li>
+          <li>Comparar los dos canales por ventas y por ganancia.</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="when">Cuando el volumen lo justifique</div>
+        <h3>Falabella e integrador</h3>
+        <ul class="clean">
+          <li>Abrir Falabella.</li>
+          <li>Evaluar el integrador cuando el manejo a mano ya no alcance.</li>
+          <li>Rappi Turbo, si usted decide entrar al por mayor, se puede pedir en paralelo desde ya.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Riesgos a tener en cuenta</h2>
+    <ul class="clean">
+      <li><strong>Margen.</strong> Con comisiones de hasta 20 % y sin conocer el costo del combo, se podría vender más y ganar menos.</li>
+      <li><strong>Precio entre canales.</strong> Si el combo queda más barato en un marketplace que en la web, le quitamos clientes a nuestra propia tienda. Lo mejor es el mismo precio en todos.</li>
+      <li><strong>Reseñas.</strong> En los marketplaces se compite por calificación, y hoy tenemos 0 reseñas en la web. Los primeros pedidos deben salir impecables.</li>
+      <li><strong>Vender producto agotado</strong> si no se respeta el cupo de inventario de cada canal.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Hechos, supuestos y datos que faltan</h2>
+    <div class="fhm">
+      <div>
+        <h3>Hechos</h3>
+        <ul class="clean">
+          <li>Éxito cobra del 8 % al 20 % + IVA y paga cada semana. Es la fuente oficial.</li>
+          <li>Multivende en Colombia: $800.000 al mes + $1.400.000 por canal.</li>
+          <li>La web vende unos $510.000 al mes en promedio.</li>
+          <li>Pahubi tiene INVIMA y código de barras en cada combo.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Supuestos</h3>
+        <ul class="clean">
+          <li>Las comisiones de Mercado Libre y Falabella vienen de fuentes no oficiales.</li>
+          <li>Que Mercado Libre traerá más ventas que los demás, por su tráfico.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Datos que faltan</h3>
+        <ul class="clean">
+          <li>El costo de cada combo.</li>
+          <li>En qué canales estamos hoy y en qué condiciones.</li>
+          <li>Si la facturación electrónica está activa.</li>
+          <li>Cuánto cobra el despacho de los pedidos de marketplaces.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sources">
+    <h2>Fuentes</h2>
+    <ul class="clean">
+      <li><a href="https://www.exito.com/marketplace">Marketplace Éxito: comisiones, logística y documentos</a></li>
+      <li><a href="https://multivende.com/colombia/">Multivende Colombia: planes y canales</a></li>
+      <li><a href="https://www.falabella.com.co/falabella-co/page/vender-en-falabella">Registro en Falabella Marketplace</a> · <a href="https://roicos.com/falabella-marketplace-sellers-publicidad/">Comisiones de Falabella según Roicos (no oficial)</a></li>
+      <li><a href="https://melium10.com/herramientas/calculadora-comisiones-mercadolibre/categoria/belleza-y-cuidado-personal">Comisiones de Mercado Libre en cuidado personal según Mellium10 (no oficial)</a> · <a href="https://digitaltrendy360.com.co/en/vender-en-mercado-libre/">Costos de vender en Mercado Libre Colombia</a></li>
+      <li><a href="https://turbo-partners.rappi.com.co/">Rappi Turbo: quiero ser proveedor</a></li>
+    </ul>
+  </section>
+</main>

@@ -1,0 +1,223 @@
+<title>Propuesta Estrategia 10</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: una columna de lectura (memo de aprobación), con tablas y una caja de decisión al final */
+:root {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --fg: #2a2230;
+  --muted: #6c6274;
+  --line: #e6e0ea;
+  --brand: #6b2d8b;
+  --brand-soft: #f3ebf7;
+  --leaf: #4f8a1f;
+  --leaf-soft: #eef6e6;
+  --warn: #9a5b00;
+  --warn-soft: #fff4e0;
+  --bad: #b3261e;
+  --font-display: "Lexend", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #18141b; --surface: #211c25; --fg: #ece6ef; --muted: #a99fb0; --line: #3a3240;
+    --brand: #c99be0; --brand-soft: #2e2236; --leaf: #9fd46b; --leaf-soft: #233019;
+    --warn: #f0b45a; --warn-soft: #33270f; --bad: #ff8a80; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #18141b; --surface: #211c25; --fg: #ece6ef; --muted: #a99fb0; --line: #3a3240;
+  --brand: #c99be0; --brand-soft: #2e2236; --leaf: #9fd46b; --leaf-soft: #233019;
+  --warn: #f0b45a; --warn-soft: #33270f; --bad: #ff8a80; color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+main { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.25; text-wrap: balance; margin: 0; }
+h1 { font-size: 1.9rem; color: var(--brand); }
+h2 { font-size: 1.3rem; margin-bottom: 12px; }
+h3 { font-size: 1.05rem; margin-bottom: 6px; }
+p { margin: 0 0 10px; }
+section { min-width: 0; }
+.eyebrow { font-family: var(--font-display); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.lede { font-size: 1.1rem; color: var(--fg); }
+.meta { color: var(--muted); font-size: .92rem; }
+.ask { background: var(--brand-soft); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; }
+.ask strong { color: var(--brand); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--font-display); font-weight: 600; font-size: .82rem; color: var(--muted); background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+td.num { text-align: right; white-space: nowrap; }
+.win td { background: var(--leaf-soft); }
+.pill { display: inline-block; font-size: .78rem; font-weight: 700; padding: 1px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.ok { background: var(--leaf-soft); color: var(--leaf); }
+.pill.no { background: var(--warn-soft); color: var(--warn); }
+ul.clean { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; min-width: 0; }
+.card .tag { font-size: .8rem; color: var(--muted); }
+.copy { background: var(--surface); border: 1px dashed var(--line); border-radius: 10px; padding: 14px 16px; font-size: .98rem; }
+code { font-size: .85rem; word-break: break-all; background: var(--brand-soft); padding: 1px 5px; border-radius: 4px; }
+.rules { display: grid; gap: 10px; }
+.rule { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.rule b { font-family: var(--font-display); font-size: .9rem; color: var(--brand); }
+@media (max-width: 480px) { .rule { grid-template-columns: 1fr; gap: 2px; } }
+.fhm { display: grid; gap: 14px; }
+.fhm h3 { font-size: .95rem; }
+.missing { color: var(--bad); font-weight: 700; }
+.decision { border: 2px solid var(--brand); border-radius: 12px; padding: 18px 20px; background: var(--surface); }
+.decision ol { margin: 8px 0 0; padding-left: 22px; display: grid; gap: 6px; }
+footer { color: var(--muted); font-size: .88rem; border-top: 1px solid var(--line); padding-top: 14px; }
+</style>
+
+<main>
+
+<header>
+  <div class="eyebrow">Pahubi · Meta Ads · para aprobación de Ivan Cordoba</div>
+  <h1>Estrategia 10: volver a pautar, ahora con la tienda arreglada</h1>
+  <p class="meta">Preparado por Andres (sistemas) · 4 de noviembre de 2026 · cuenta Meta Pahubi 2071312623652434</p>
+</header>
+
+<section class="ask">
+  <p class="lede"><strong>Lo que se pide aprobar:</strong> una campaña de 5 días por <strong>$200.000</strong> ($40.000 diarios) en las 6 ciudades donde tenemos envío de $12.000, con el anuncio que ya vendió antes ("Hombre Rudo") y llevando a la gente directo a la ficha del combo. Opción mínima: $150.000 ($30.000 diarios).</p>
+  <p style="margin:0">Meta de éxito: <strong>4 pedidos pagados</strong> en WooCommerce con el UTM de la campaña. Revisión obligatoria al día 3.</p>
+</section>
+
+<section>
+  <h2>Qué nos enseñaron las 9 estrategias anteriores</h2>
+  <p>Las ventas se cuentan solo con pedidos pagados en WooCommerce que traen el UTM de cada campaña.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Campaña</th><th>Objetivo</th><th class="num">Gasto</th><th class="num">Pedidos pagados</th></tr></thead>
+      <tbody>
+        <tr class="win"><td>E3 Hombre Rudo (top 10 ciudades)</td><td>Tráfico</td><td class="num">$363.000</td><td class="num">4 ($208.662)</td></tr>
+        <tr><td>E4 Flushable Bogotá</td><td>Ventas</td><td class="num">$458.165</td><td class="num">3</td></tr>
+        <tr><td>E4 Raquel Bogotá</td><td>Ventas</td><td class="num">$432.595</td><td class="num">1</td></tr>
+        <tr><td>E7 + E9 Video Sensorial (6 ciudades)</td><td>Tráfico</td><td class="num">$474.090</td><td class="num">0</td></tr>
+        <tr><td>E8 Nube Pañito</td><td>Tráfico</td><td class="num">$190.356</td><td class="num">0</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="clean" style="margin-top:12px">
+    <li><b>"Hombre Rudo" es el único anuncio que ha vendido de forma constante</b> y el que tuvo la visita más barata (unos $40).</li>
+    <li>Las campañas con objetivo <b>Ventas</b> pagaron entre $9.400 y $21.400 por cada 1.000 impresiones y vendieron menos que la de tráfico.</li>
+    <li>La E9 tuvo 1.985 visitas y 0 ventas: <b>3 de cada 4 personas se iban en menos de 10 segundos</b>, porque llegaban a la tienda general y no al producto del anuncio.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Lo que se arregló en la tienda (3 y 4 de noviembre)</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Problema encontrado</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr><td>Los pedidos caídos solo le llegaban a Findcor; nadie de Pahubi se enteraba</td><td><span class="pill ok">Arreglado</span></td></tr>
+        <tr><td>La tienda decía "envío desde $11.100"; ahora dice "+ envío $12.000 en ciudades principales", también en la ficha del producto</td><td><span class="pill ok">Arreglado</span></td></tr>
+        <tr><td>Quien vive en Cundinamarca no encontraba su departamento; ahora aparecen "Cundinamarca" y "Bogotá Alrededores y Sabana", con el mismo envío</td><td><span class="pill ok">Arreglado</span></td></tr>
+        <tr><td>Si el banco rechazaba el pago, el pedido se cancelaba y el cliente debía llenar todo de nuevo; ahora puede reintentar con el botón "Pagar"</td><td><span class="pill ok">Arreglado</span></td></tr>
+        <tr><td>La foto del combo tardaba 10,8 s en aparecer en celular; ahora 8,3 s</td><td><span class="pill ok">Mejorado</span></td></tr>
+        <tr><td>El Pixel de Meta contaba compras de más; hoy cuenta 9 compras contra unos 10 pedidos reales</td><td><span class="pill ok">Verificado</span></td></tr>
+        <tr><td>El servidor tarda unos 2 s en responder (no hay caché porque dio errores)</td><td><span class="pill no">Pendiente</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>La campaña propuesta</h2>
+  <div class="grid2">
+    <div class="card"><h3>Objetivo</h3><p>Tráfico, optimizado para <b>visitas a la página de destino</b> (Meta solo cobra cuando la página carga, no por el clic). Es lo que usó la única campaña que vendió.</p></div>
+    <div class="card"><h3>Dónde</h3><p>Bogotá, Medellín, Cali, Barranquilla, Cartagena y Pasto, <b>más sus municipios con cobertura JAMV</b> (Chía, Soacha, Envigado, Bello, Soledad, Palmira, Yumbo y demás).</p></div>
+    <div class="card"><h3>A quién</h3><p>Público amplio de 18 a 65 años, sin lista de intereses. La E9 tenía 18 intereses y no ayudó; el anuncio hace el filtro.</p></div>
+    <div class="card"><h3>Ubicaciones</h3><p>Instagram y Facebook (feed y reels). En la E9, Instagram trajo visitas más baratas y de mejor calidad.</p></div>
+  </div>
+
+  <h3 style="margin-top:20px">Anuncios (sobre publicaciones orgánicas que ya existen)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Anuncio</th><th>Por qué</th><th>Lleva a</th></tr></thead>
+      <tbody>
+        <tr><td><b>A. Hombre Rudo</b></td><td>El único con ventas reales</td><td>Ficha del Combo Papel Higiénico Húmedo</td></tr>
+        <tr><td><b>B. Video Sensorial</b></td><td>Clic más barato en la E9; va como comparación</td><td>Ficha del Combo Papel Higiénico Húmedo</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="margin-top:20px">Línea que se agrega al texto de los anuncios</h3>
+  <div class="copy">Envío $12.000 en Bogotá, Medellín, Cali, Barranquilla, Cartagena y Pasto 🚚 · Combo de 240 hojas a $32.200, biodegradable y 99 % agua 🌿</div>
+
+  <h3 style="margin-top:20px">Enlace con UTM</h3>
+  <p><code>https://pahubi.com/producto/combo-papel-higienico-humedo-biodegradable/?utm_source=meta&amp;utm_medium=paid_social&amp;utm_campaign=estrategia10_ficha_jamv&amp;utm_content=hombre_rudo</code></p>
+  <p class="meta">El anuncio B usa el mismo enlace con <code>utm_content=sensorial</code>. Dos combos pesan 3,9 kg, así que siguen pagando $12.000 de envío.</p>
+</section>
+
+<section>
+  <h2>Metas y revisiones</h2>
+  <div class="rules">
+    <div class="rule"><b>Día 3</b><span>Con unos $120.000 gastados se revisa: visitas a la ficha, agregados al carrito y pedidos creados. Si hay menos de 10 agregados al carrito y ningún pedido, se habla con Ivan antes de seguir. Si uno de los dos anuncios va claramente peor, se apaga ese y se deja el otro.</span></div>
+    <div class="rule"><b>Día 5</b><span>Cierre con informe: gasto, visitas, embudo (ficha → carrito → pago → pagado) y pedidos pagados por anuncio.</span></div>
+    <div class="rule"><b>Éxito</b><span>4 o más pedidos pagados con el UTM de la E10, es decir unos $50.000 de pauta por pedido. La mejor campaña anterior (E3) gastó unos $90.000 por pedido.</span></div>
+    <div class="rule"><b>Cómo se mide</b><span>Pedidos pagados en WooCommerce con UTM (nunca las compras del Pixel). Visitas por página en Google Analytics. Quien atiende ventas anota cuántos mensajes de WhatsApp llegan diciendo que vieron el anuncio.</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Antes de activar</h2>
+  <ul class="clean">
+    <li>Confirmar que las publicaciones de "Hombre Rudo" y del Video Sensorial siguen publicadas en Instagram.</li>
+    <li>Probar como cliente en un celular: anuncio → ficha → carrito → pago (sin pagar). Revisar que el envío diga $12.000.</li>
+    <li>Revisar que el enlace del anuncio lleve a la ficha del combo y tenga el UTM.</li>
+    <li>WhatsApp de la ficha: solo +57 300 5060274.</li>
+  </ul>
+</section>
+
+<section class="fhm">
+  <h2>Hechos, supuestos y datos que faltan</h2>
+  <div>
+    <h3>Hechos</h3>
+    <ul class="clean">
+      <li>La E9 apuntó a las 6 ciudades correctas, pero llevó a la gente a la tienda general: 1.985 visitas, 16 agregados al carrito y 0 pagos.</li>
+      <li>Donde hay envío JAMV paga el 76 % de quienes crean un pedido; fuera de esa zona, el 27 %.</li>
+      <li>El Pixel hoy cuenta bien las compras: 9 eventos contra unos 10 pedidos reales en 28 días.</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Supuestos que esta campaña pone a prueba</h3>
+    <ul class="clean">
+      <li>Llevar a la gente a la ficha del producto, y no a la tienda general, hace que más personas agreguen al carrito.</li>
+      <li>Mostrar el envío de $12.000 desde el anuncio evita que se vayan al ver el total.</li>
+      <li>"Hombre Rudo" sigue vendiendo al pasar de 10 ciudades a las 6 con cobertura.</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Datos que faltan</h3>
+    <ul class="clean">
+      <li><span class="missing">FALTA</span> el costo de cada combo. Sin él no se sabe cuánto se puede pagar por pedido sin perder plata. Con un pedido promedio de $58.870, $50.000 de pauta por pedido probablemente todavía no deja ganancia.</li>
+      <li><span class="missing">FALTA</span> medir las ventas que se cierran por WhatsApp. En la E9 hubo 38 clics al botón de contacto.</li>
+      <li><span class="missing">FALTA</span> que Analytics registre cuándo alguien ve el producto o empieza a pagar; por ahora se mide por páginas visitadas.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="decision">
+  <h2>Decisión</h2>
+  <ol>
+    <li><b>Aprobar $200.000 por 5 días</b> (recomendado).</li>
+    <li>Aprobar la versión mínima: $150.000 por 5 días.</li>
+    <li>No pautar todavía.</li>
+  </ol>
+  <p class="meta" style="margin-top:10px">Nada se publica ni se activa sin esta aprobación.</p>
+</section>
+
+<footer>Fuentes: Meta Ads y Google Analytics vía Windsor.ai, pedidos de WooCommerce (pahubi.com) y la auditoría del checkout del 3 de noviembre de 2026.</footer>
+
+</main>

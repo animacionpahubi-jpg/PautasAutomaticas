@@ -1,0 +1,30 @@
+{
+ "nota": "Publicaciones que ya se pautaron. El bot agrega solas las que ve en anuncios (30 días de Windsor) y las suyas. Se pueden agregar a mano: código del link de Instagram (lo que va después de /reel/ o /p/) o id del video de TikTok.",
+ "instagram": [
+  "17963030723983196",
+  "18035341601846493",
+  "18107932976180475",
+  "18118693115062663",
+  "18124846478314631",
+  "18133865845689190",
+  "18209919754363658",
+  "18358770196218603",
+  "DUHoRT0EQoH",
+  "DczVf8niVsf",
+  "Dd_2RL6Mqbq",
+  "DdcdoA6kYYG",
+  "DdkCRHUMsrY",
+  "DeK-LFyANR6",
+  "DeK9TXZMG1o",
+  "DePcNyDlrmY",
+  "DfKqApdAePw",
+  "DfafibAg_hO",
+  "DfamQKkAne3"
+ ],
+ "tiktok": [
+  "7600984332638981383",
+  "7694345479877840148",
+  "7702134925788679445"
+ ],
+ "nota_manual": "DczVf8niVsf (oso hormiguero) y DePcNyDlrmY (zunzuncito): se pautaron con una copia del video, no sobre el reel original."
+}

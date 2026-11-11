@@ -1,0 +1,288 @@
+<title>Ruta a 50 Diarias</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: plan de crecimiento en una columna; escalera de metas, mezcla de canales, fases con puertas de paso y tablas de responsables */
+:root {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --fg: #2a2230;
+  --muted: #6c6274;
+  --line: #e6e0ea;
+  --brand: #6b2d8b;
+  --brand-soft: #f3ebf7;
+  --leaf: #4f8a1f;
+  --leaf-soft: #eef6e6;
+  --warn: #9a5b00;
+  --warn-soft: #fff4e0;
+  --font-display: "Lexend", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #18141b; --surface: #211c25; --fg: #ece6ef; --muted: #a99fb0; --line: #3a3240;
+    --brand: #c99be0; --brand-soft: #2e2236; --leaf: #9fd46b; --leaf-soft: #233019;
+    --warn: #f0b45a; --warn-soft: #33270f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #18141b; --surface: #211c25; --fg: #ece6ef; --muted: #a99fb0; --line: #3a3240;
+  --brand: #c99be0; --brand-soft: #2e2236; --leaf: #9fd46b; --leaf-soft: #233019;
+  --warn: #f0b45a; --warn-soft: #33270f; color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+main { max-width: 840px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.25; text-wrap: balance; margin: 0; }
+h1 { font-size: 2rem; color: var(--brand); }
+h2 { font-size: 1.3rem; margin-bottom: 12px; }
+h3 { font-size: 1.05rem; margin-bottom: 6px; }
+p { margin: 0 0 10px; }
+section { min-width: 0; }
+.eyebrow { font-family: var(--font-display); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.lede { font-size: 1.1rem; }
+.meta, .note { color: var(--muted); font-size: .92rem; }
+.ask { background: var(--brand-soft); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; }
+.ask h2 { color: var(--brand); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .93rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--font-display); font-weight: 600; font-size: .8rem; color: var(--muted); background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+td.num, th.num { text-align: right; white-space: nowrap; }
+.wide { min-width: 720px; }
+.pill { display: inline-block; font-size: .76rem; font-weight: 700; padding: 1px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.ok { background: var(--leaf-soft); color: var(--leaf); }
+.pill.wait { background: var(--warn-soft); color: var(--warn); }
+.pill.info { background: var(--brand-soft); color: var(--brand); }
+ul.clean, ol.clean { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+
+/* Escalera de metas */
+.ladder { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.step { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+.step .when { font-size: .8rem; color: var(--muted); font-family: var(--font-display); letter-spacing: .04em; text-transform: uppercase; }
+.step .val { font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; color: var(--brand); line-height: 1.2; font-variant-numeric: tabular-nums; }
+.step .unit { font-size: .85rem; color: var(--muted); }
+.step.now { background: var(--bg); }
+.step.now .val { color: var(--fg); }
+.bar { height: 6px; border-radius: 3px; background: var(--line); margin-top: 8px; overflow: hidden; }
+.bar > span { display: block; height: 100%; background: var(--brand); }
+
+.phases { display: grid; gap: 14px; }
+.phase { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; min-width: 0; }
+.phase .when { font-size: .85rem; color: var(--muted); margin-bottom: 4px; }
+.gate { margin-top: 10px; padding: 10px 12px; border-radius: 8px; background: var(--leaf-soft); font-size: .93rem; }
+.gate strong { color: var(--leaf); }
+.fhm { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.fhm > div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+.fhm h3 { font-size: .95rem; }
+.sources { font-size: .88rem; color: var(--muted); }
+.sources a { color: var(--brand); word-break: break-word; }
+a:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+</style>
+
+<main>
+  <header>
+    <div class="eyebrow">Plan de crecimiento · Pahubi SAS · 6 de noviembre de 2026</div>
+    <h1>Ruta a 50 unidades diarias</h1>
+    <p class="lede">Hoy la tienda web vende cerca de <strong>1 unidad al día</strong>. La meta es <strong>30 a 50</strong>. Este plan propone llegar a 30 en unos 6 meses y a 50 en un año, <strong>sumando canales</strong>. La web sola no alcanza: el volumen tiene que salir de Rappi, las droguerías y los marketplaces, y la web aporta margen, datos y clientes que vuelven.</p>
+    <p class="meta">Preparado por Andres con datos de WooCommerce, Meta, GA4 y una investigación de canales en Colombia. Las cifras de la mezcla de canales son metas por validar, no pronósticos.</p>
+  </header>
+
+  <section class="ask">
+    <h2>Lo que necesitamos de Ivan esta semana</h2>
+    <ol class="clean">
+      <li><strong>El costo de cada producto,</strong> incluido el formato personal x20. Sin ese dato no sabemos cuánto descuento aguanta la venta al por mayor.</li>
+      <li><strong>Las ventas actuales por canal:</strong> Alkosto, Rappi, Falabella (apareció una tienda "PAHUBI SAS" activa en falabella.com.co) y cualquier venta directa o por WhatsApp.</li>
+      <li><strong>Una persona comercial,</strong> aunque sea por comisión, para visitar droguerías, distribuidores y Rappi. Es el hueco más grande del plan: la venta al por mayor no se hace sola.</li>
+      <li><strong>Aprobar la pauta E10</strong> ($200.000 en 7 días) apenas quede corregido el envío de 3 combos.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Dónde estamos</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Mes (tienda web)</th><th class="num">Pedidos</th><th class="num">Unidades</th><th class="num">Unidades al día</th><th class="num">Ventas</th></tr></thead>
+        <tbody>
+          <tr><td>Julio</td><td class="num">6</td><td class="num">9</td><td class="num">0,3</td><td class="num">$387.542</td></tr>
+          <tr><td>Agosto</td><td class="num">16</td><td class="num">27</td><td class="num">0,9</td><td class="num">$913.956</td></tr>
+          <tr><td>Septiembre (el mejor)</td><td class="num">26</td><td class="num">83</td><td class="num">2,8</td><td class="num">$1.405.829</td></tr>
+          <tr><td>Octubre</td><td class="num">11</td><td class="num">23</td><td class="num">0,7</td><td class="num">$751.927</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="clean" style="margin-top:14px">
+      <li><strong>De dónde llegan los pedidos:</strong> entrada directa 29, Google 13, pauta de Meta 8 e Instagram orgánico 9, de 61 pedidos. Google es la segunda fuente sin que le hayamos invertido nada.</li>
+      <li><strong>Dónde se pierden:</strong> solo se paga el 46 % de los pedidos, y 149 de 184 carritos se abandonan antes de dejar el correo. Esta semana se automatizaron los recordatorios de pago, de carrito abandonado y de recompra.</li>
+      <li><strong>Lo que más se vende</strong> es el papel higiénico húmedo personal x20. Ese formato pequeño es justo el que sirve para droguerías y tiendas.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>La meta, por escalones</h2>
+    <div class="ladder">
+      <div class="step now"><div class="when">Hoy</div><div class="val">1</div><div class="unit">unidad al día</div><div class="bar"><span style="width:2%"></span></div></div>
+      <div class="step"><div class="when">Diciembre</div><div class="val">3</div><div class="unit">unidades al día</div><div class="bar"><span style="width:6%"></span></div></div>
+      <div class="step"><div class="when">Febrero</div><div class="val">10</div><div class="unit">unidades al día</div><div class="bar"><span style="width:20%"></span></div></div>
+      <div class="step"><div class="when">Mayo</div><div class="val">30</div><div class="unit">unidades al día</div><div class="bar"><span style="width:60%"></span></div></div>
+      <div class="step"><div class="when">Noviembre 2027</div><div class="val">50</div><div class="unit">unidades al día</div><div class="bar"><span style="width:100%"></span></div></div>
+    </div>
+    <p class="note" style="margin-top:10px">Cada escalón tiene una revisión. Si no se alcanza, se ajusta el canal que falló antes de subir el presupuesto.</p>
+  </section>
+
+  <section>
+    <h2>De dónde saldrían 30 unidades al día</h2>
+    <p>Esta es una meta por canal para mayo, por validar. Los porcentajes de margen son referencias de mercado y cambian cuando se negocie con cada canal.</p>
+    <div class="table-wrap">
+      <table class="wide">
+        <thead><tr><th>Canal</th><th class="num">Meta al día</th><th>Cómo se entra</th><th>Qué se queda el canal</th><th>Qué tan realista</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Droguerías</strong> (Coopidrogas o un distribuidor)</td><td class="num">10</td><td>Coopidrogas compra para más de 10.000 droguerías independientes. También se puede entrar con un distribuidor de droguería. Se ofrece el formato x20</td><td>Cerca del 30 % el minorista, más lo del distribuidor <span class="pill wait">por negociar</span></td><td><span class="pill info">Media</span> Un solo cliente da mucho alcance, pero el proceso para proveedores nuevos no es público</td></tr>
+          <tr><td><strong>Rappi Turbo</strong></td><td class="num">6</td><td>Formulario de proveedores. En febrero de 2025 hubo una convocatoria para pymes que incluía aseo personal</td><td>Rappi compra el inventario y pone el precio <span class="pill wait">por negociar</span></td><td><span class="pill ok">Media-alta</span> Ya cumplimos INVIMA y código de barras. Pequeñín manda toda su pauta a Rappi</td></tr>
+          <tr><td><strong>Marketplaces</strong> (Mercado Libre, Éxito, Falabella)</td><td class="num">6</td><td>Registro de vendedor. Falabella ya tiene una tienda nuestra</td><td>Entre 8 % y 20 % + IVA</td><td><span class="pill ok">Alta</span> Se controla desde acá. Ver la propuesta de marketplaces</td></tr>
+          <tr><td><strong>Tienda web + recompra</strong></td><td class="num">5</td><td>Pauta medida, Google, correos automáticos y reseñas</td><td>Envío y pauta</td><td><span class="pill ok">Alta</span> Es el canal con más margen y donde quedan los datos de los clientes</td></tr>
+          <tr><td><strong>Alkosto y otros retail</strong></td><td class="num">3</td><td>La relación ya existe. Hay que confirmar en qué condiciones</td><td>Por confirmar</td><td><span class="pill wait">Confirmar</span> No sabemos cuánto vende hoy</td></tr>
+          <tr><td><strong>Total</strong></td><td class="num"><strong>30</strong></td><td colspan="3"></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:10px">Lo que no conviene ahora: las grandes cadenas de supermercados, porque piden codificación, pagan a 45 días y exigen mercaderistas. Tampoco el canal institucional (no hay evidencia de demanda), ni TikTok Shop, que no está confirmado en Colombia. Los retomamos al llegar a 30 diarias.</p>
+  </section>
+
+  <section>
+    <h2>Fases</h2>
+    <div class="phases">
+      <div class="phase">
+        <div class="when">Semanas 1 y 2 · hasta el 20 de noviembre</div>
+        <h3>Destrabar</h3>
+        <ul class="clean">
+          <li>Costos por producto y ventas actuales por canal.</li>
+          <li>Corregir el envío de 3 combos (snippet 4039) y probar el carrito en las 6 ciudades.</li>
+          <li>Aprobar las reseñas automáticas.</li>
+          <li>Hablar con 10 clientes que compraron una sola vez y preguntarles por qué no volvieron.</li>
+          <li>Revisar la tienda de Falabella y llenar el formulario de Rappi Turbo.</li>
+        </ul>
+        <div class="gate"><strong>Para pasar:</strong> tenemos los costos, el envío cobra bien y hay respuestas de al menos 5 clientes.</div>
+      </div>
+      <div class="phase">
+        <div class="when">Semanas 3 a 6 · hasta el 18 de diciembre</div>
+        <h3>Base</h3>
+        <ul class="clean">
+          <li>Pauta E10 con 3 anuncios compitiendo, medida por pedidos pagados en WooCommerce.</li>
+          <li>Publicar los combos en Mercado Libre.</li>
+          <li>Activar la ficha gratuita de productos en Google.</li>
+          <li>Diseñar la oferta mayorista: formato x20 en caja exhibidora, precio por volumen y mínimo de pedido.</li>
+          <li>Lista de 30 droguerías y distribuidores en Bogotá y la Sabana. Se arma solo con datos públicos de cada negocio, sin scraping.</li>
+          <li>Primeras 10 visitas con muestras.</li>
+        </ul>
+        <div class="gate"><strong>Para pasar:</strong> 3 unidades al día en total, el costo por pedido de la pauta está por debajo del margen y hay al menos 2 clientes mayoristas haciendo pedido.</div>
+      </div>
+      <div class="phase">
+        <div class="when">Semanas 7 a 12 · enero</div>
+        <h3>Velocidad</h3>
+        <ul class="clean">
+          <li>Subir el presupuesto solo en lo que vendió, de a 20 % por vez.</li>
+          <li>Entrar a Éxito marketplace.</li>
+          <li>Buscar la entrada a Coopidrogas.</li>
+          <li>Que el bot reporte las unidades de todos los canales cada lunes.</li>
+          <li>Inscribirse en la siguiente convocatoria de iNNpulsa para grandes superficies.</li>
+        </ul>
+        <div class="gate"><strong>Para pasar:</strong> 10 unidades al día, con margen positivo en cada canal.</div>
+      </div>
+      <div class="phase">
+        <div class="when">Meses 4 a 6 · febrero a mayo</div>
+        <h3>Escalar</h3>
+        <ul class="clean">
+          <li>Rappi Turbo funcionando.</li>
+          <li>Coopidrogas o un distribuidor con rotación.</li>
+          <li>Recompra y reseñas sumando ventas.</li>
+          <li>Evaluar un integrador de marketplaces cuando el manejo a mano ya no alcance.</li>
+        </ul>
+        <div class="gate"><strong>Meta:</strong> 30 unidades al día. Desde ahí se evalúan las cadenas, otras ciudades y el formato para tiendas de barrio, para llegar a 50.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quién hace qué</h2>
+    <div class="table-wrap">
+      <table class="wide">
+        <thead><tr><th>Frente</th><th>Responsable</th><th>Apoyo de Claude (agentes y skills)</th></tr></thead>
+        <tbody>
+          <tr><td>Aprobaciones, costos y negociación con canales</td><td>Ivan</td><td>Propuestas con números, mensajes y presentaciones para compradores</td></tr>
+          <tr><td>Tienda web, pauta y automatizaciones</td><td>Andres</td><td><em>auditor-woocommerce</em>, <em>cro</em>, <em>ads</em>, <em>ad-account-diagnostic</em>, bot de métricas</td></tr>
+          <tr><td>Creativos y fotos para marketplaces</td><td>Daniel</td><td><em>ad-creative</em>, <em>social</em>, <em>ad-swipe-file</em> (lo que hace la competencia)</td></tr>
+          <tr><td>Facturación, inventario y despachos</td><td>Jhoana</td><td>Cupos de inventario por canal y reporte semanal</td></tr>
+          <tr><td>Venta a droguerías y distribuidores</td><td><strong>Falta la persona</strong></td><td><em>prospecting</em> (lista de negocios con datos públicos), <em>offers</em> (oferta mayorista), guiones de visita</td></tr>
+          <tr><td>Entender al cliente</td><td>Andres</td><td><em>customer-research</em> (preguntas y análisis de las entrevistas)</td></tr>
+          <tr><td>Seguimiento del plan</td><td>Andres e Ivan</td><td><em>marketing-plan</em> y el bot: unidades por canal cada lunes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:10px">Claude analiza, redacta, automatiza y mide. No publica, no gasta ni negocia sin la aprobación de Ivan, y no puede reemplazar a la persona que visita a los compradores.</p>
+  </section>
+
+  <section>
+    <h2>Cómo sabremos si va bien</h2>
+    <ul class="clean">
+      <li><strong>Indicador principal:</strong> unidades vendidas al día, sumando todos los canales, revisado cada lunes.</li>
+      <li><strong>Por canal:</strong> unidades, ventas y margen después de la comisión, el envío y la pauta.</li>
+      <li><strong>Web:</strong> porcentaje de pedidos pagados, carritos recuperados, recompras y reseñas.</li>
+      <li><strong>Pauta:</strong> costo por pedido pagado en WooCommerce, nunca las compras que reporta el Pixel.</li>
+      <li><strong>Mayoristas:</strong> visitas hechas, muestras entregadas, primeros pedidos y segundos pedidos. Que pidan otra vez es la prueba de que el producto rota.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Hechos, supuestos y datos que faltan</h2>
+    <div class="fhm">
+      <div>
+        <h3>Hechos</h3>
+        <ul class="clean">
+          <li>La web vende cerca de 1 unidad al día. El mejor mes fueron 2,8.</li>
+          <li>Google trajo 13 de 61 pedidos sin inversión.</li>
+          <li>El formato x20 es el más vendido.</li>
+          <li>El plazo máximo de pago a una mipyme es de 45 días (Ley 2024 de 2020).</li>
+          <li>Coopidrogas tiene más de 10.000 droguerías.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Supuestos</h3>
+        <ul class="clean">
+          <li>La mezcla de canales para llegar a 30 al día.</li>
+          <li>El margen de cerca del 30 % para el minorista viene de una presentación de la ANDI de segunda mano.</li>
+          <li>Que Rappi Turbo y Coopidrogas reciban marcas nuevas en aseo personal.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Datos que faltan</h3>
+        <ul class="clean">
+          <li>El costo de cada producto.</li>
+          <li>Las ventas actuales en Alkosto, Rappi y Falabella.</li>
+          <li>La capacidad de producción para 50 al día.</li>
+          <li>El presupuesto mensual disponible para pauta y para la persona comercial.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sources">
+    <h2>Fuentes</h2>
+    <ul class="clean">
+      <li><a href="https://www.larepublica.co/empresas/ingresos-operacionales-de-coopidrogas-2025-4333882">Coopidrogas, droguerías activas (La República)</a></li>
+      <li><a href="https://lanotaeconomica.com.co/movidas-empresarial/rappi-impulsa-el-emprendimiento-a-traves-de-turbo">Convocatoria de Rappi Turbo para pymes</a> · <a href="https://turbo-partners.rappi.com.co">Rappi Turbo: quiero ser proveedor</a></li>
+      <li><a href="https://normograma.supersalud.gov.co/compilacion/docs/ley_2024_2020.htm">Ley 2024 de 2020, pago a mipymes</a></li>
+      <li><a href="https://grupo-exito.com/es/manual-de-proveedores-grupo-exito.pdf">Manual de proveedores Grupo Éxito</a></li>
+      <li><a href="https://www.larepublica.co/consumo/las-tiendas-de-barrio-concentran-37-de-las-ventas-de-productos-de-consumo-masivo-en-el-pais-4467810">Tiendas de barrio, 37 % del consumo masivo</a> · <a href="https://www.andi.com.co/Uploads/4.%20Diego%20Loaiza_639250656172737627.pdf">Presentación ANDI sobre márgenes</a></li>
+      <li><a href="https://www.portafolio.co/negocios/empresas/mipymes-y-economia-popular-acceden-a-servicios-gratuitos-para-impulsar-su-competitividad-491787">Convocatoria iNNpulsa para mipymes (Portafolio)</a></li>
+      <li><a href="https://www.falabella.com.co/falabella-co/seller/PAHUBI%20SAS">Tienda PAHUBI SAS en Falabella</a></li>
+    </ul>
+  </section>
+</main>

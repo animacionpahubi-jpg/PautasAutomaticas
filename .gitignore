@@ -1,0 +1,22 @@
+# Llaves y estado interno del bot: NUNCA se suben
+.env
+*.env
+!.env.example
+bot-metricas/estado.json
+bot-metricas/*.log
+
+# Respaldos y archivos de Python generados
+bot-metricas/bot_respaldo_*.py
+__pycache__/
+*.pyc
+
+# Archivos personales o pesados que no hacen falta para retomar
+*.ogg
+*.xlsx
+servidor/
+*.pem
+*.key
+
+# Skills de terceros instaladas (se reinstalan con skills-lock.json; ver TRASPASO.md)
+.claude/skills/
+.claude/settings.local.json
