@@ -1,0 +1,42 @@
+name: 📝 Documentación de proceso
+description: Registrar cómo se realiza un proceso para que cualquiera pueda repetirlo
+title: "[DOC] "
+labels: ["documentacion"]
+body:
+  - type: input
+    id: proceso
+    attributes:
+      label: Proceso
+      placeholder: "Ej.: Renderizado final de escena / Generación de token de MercadoLibre"
+    validations:
+      required: true
+  - type: textarea
+    id: objetivo
+    attributes:
+      label: Objetivo
+      description: Para qué sirve este proceso y cuándo se ejecuta
+    validations:
+      required: true
+  - type: textarea
+    id: requisitos
+    attributes:
+      label: Requisitos previos
+      description: Herramientas, accesos, archivos o credenciales necesarias (¡nunca pegues secretos aquí!)
+  - type: textarea
+    id: pasos
+    attributes:
+      label: Pasos
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: resultado
+    attributes:
+      label: Resultado esperado y verificación
+  - type: textarea
+    id: problemas
+    attributes:
+      label: Problemas comunes y soluciones
