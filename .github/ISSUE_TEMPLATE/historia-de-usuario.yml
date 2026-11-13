@@ -1,0 +1,36 @@
+name: 📖 Historia de usuario
+description: Una funcionalidad descrita desde el punto de vista de quien la usa
+title: "[HU] "
+labels: ["historia-usuario"]
+body:
+  - type: textarea
+    id: historia
+    attributes:
+      label: Historia
+      description: Usa el formato Como / Quiero / Para
+      value: |
+        **Como** <rol>
+        **quiero** <objetivo>
+        **para** <beneficio>
+    validations:
+      required: true
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Criterios de aceptación
+      description: Condiciones verificables para dar la historia por terminada
+      value: |
+        - [ ] Dado <contexto>, cuando <acción>, entonces <resultado>
+    validations:
+      required: true
+  - type: textarea
+    id: tareas
+    attributes:
+      label: Tareas
+      description: Desglose en tareas. Crea cada una como sub-issue con la plantilla "Tarea".
+      placeholder: "- [ ] #123"
+  - type: textarea
+    id: notas
+    attributes:
+      label: Notas / contexto
+      description: Referencias, diseños, dependencias, riesgos

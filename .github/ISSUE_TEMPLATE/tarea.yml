@@ -1,0 +1,26 @@
+name: 🛠️ Tarea
+description: Trabajo concreto necesario para completar una historia de usuario
+title: "[TAREA] "
+labels: ["tarea"]
+body:
+  - type: input
+    id: historia
+    attributes:
+      label: Historia de usuario relacionada
+      description: Número del issue de la historia (o añade esta tarea como sub-issue)
+      placeholder: "#12"
+  - type: textarea
+    id: descripcion
+    attributes:
+      label: Descripción
+      description: Qué hay que hacer y por qué
+    validations:
+      required: true
+  - type: textarea
+    id: hecho
+    attributes:
+      label: Definición de hecho
+      value: |
+        - [ ] Implementado
+        - [ ] Probado
+        - [ ] Documentado (README / wiki / comentario en el issue)
